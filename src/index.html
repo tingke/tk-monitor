@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前端监控SDK</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="container">
+        <div class="content">
+            <input id="error" type="button" value="点击抛出错误" onclick="errorClick()">
+            <input id="promise" type="button" value="点击抛出Promise错误" onclick="promiseErrorClick()">
+            <img class="img" src="1.jpg" alt="">
+        </div>
+    </div>
+    <script>
+        window.onerror = function(e) {
+            console.log('window:error', e);
+
+        }
+        function errorClick() {
+            window.someVar.error = 'error'
+        }
+        function promiseErrorClick() {
+            new Promise((resolve, reject) => {
+                window.someVar.error = 'error'
+                // reject('error')
+            })
+        }
+    </script>
+    <script src="./some.js"></script>
+</body>
+</html>
