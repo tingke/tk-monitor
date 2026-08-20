@@ -1,20 +1,64 @@
 {
   "name": "tk-monitor",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "build": "webpack",
-    "dev": "webpack-dev-server"
+  "version": "0.1.0",
+  "description": "轻量级前端监控 SDK：JS/Promise/资源错误、接口异常与耗时、Web Vitals、用户行为",
+  "main": "dist/index.umd.js",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.umd.js"
+    }
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest run",
+    "lint": "eslint src test",
+    "format": "prettier --write .",
+    "changeset": "changeset",
+    "changelog": "changeset version",
+    "demo": "node demo/server.js",
+    "release": "pnpm build && changeset publish"
+  },
+  "keywords": [
+    "monitor",
+    "frontend",
+    "error-tracking",
+    "web-vitals",
+    "performance",
+    "sdk"
+  ],
+  "author": "tingke",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tingke/tk-monitor.git"
+  },
+  "homepage": "https://github.com/tingke/tk-monitor#readme",
+  "bugs": {
+    "url": "https://github.com/tingke/tk-monitor/issues"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "web-vitals": "^4.2.4"
+  },
   "devDependencies": {
-    "html-webpack-plugin": "^5.6.0",
-    "user-agent": "^1.0.4",
-    "webpack": "^5.94.0",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "@changesets/cli": "^2.27.0",
+    "eslint": "^9.0.0",
+    "express": "^5.2.1",
+    "jsdom": "^25.0.0",
+    "prettier": "^3.3.0",
+    "tsup": "^8.3.0",
+    "typescript": "^5.6.0",
+    "typescript-eslint": "^8.0.0",
+    "vitest": "^2.1.0"
   }
 }
