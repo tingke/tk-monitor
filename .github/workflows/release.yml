@@ -9,6 +9,7 @@ concurrency: ${{ github.workflow }}-${{ github.ref }}
 permissions:
   contents: write
   pull-requests: write
+  id-token: write # npm Trusted Publishing (OIDC) 必需：允许向 npm 证明本工作流身份
 
 jobs:
   release:
@@ -20,8 +21,11 @@ jobs:
           version: 9
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          # Node 24 自带 npm 11.x：Trusted Publishing 要求 npm >= 11.5.0
+          node-version: 24
           cache: pnpm
+          # 显式锁定官方 registry，OIDC 令牌交换按此地址进行
+          registry-url: https://registry.npmjs.org/
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
       - name: Create Release Pull Request or Publish
@@ -31,4 +35,4 @@ jobs:
           publish: pnpm release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          # NPM_TOKEN 已移除：发布走 npm Trusted Publishing，GitHub OIDC 免 token 认证
