@@ -17,6 +17,8 @@ export default defineConfig([
     entry: ['src/index.ts'],
     format: ['umd'],
     globalName: 'TkMonitor',
+    // 生成 index.d.ts（cjs 语义声明），配合 esm 份的 index.d.mts 覆盖两种加载场景
+    dts: true,
     // 浏览器 <script> 加载无模块系统，外部化的依赖会退化为全局变量查找
     // （global.webVitals → undefined），必须内联
     noExternal: ['web-vitals'],
